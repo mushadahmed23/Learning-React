@@ -18,7 +18,7 @@ class CartItem extends React.Component{
 
         // 2nd way of setting state
         // note:- set state is async in nature we need to use another call back func for doing sync task
-        // except promises and ajax  and render is called every time
+        // except promises and ajax  and render is called eve ry time
         this.setState ((prevState)=>{
            return{ qty:prevState.qty+1
 
