@@ -9,10 +9,11 @@ body {
 
 .cart-item{
   display: inline-flex;
-  margin: 2px 2px;
+  margin: 20px 10px;
 }
-.right-block{
-  padding: 0  20px;
+ .right-block{
+  padding: 0 20px;
+  text-align: justify;
 }
 .cart-item-actions{
   margin-top: 20px;
@@ -26,4 +27,4 @@ body {
 }
 .action-icons:hover{
   cursor: pointer;
-}
+}  
