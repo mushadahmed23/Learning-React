@@ -1,12 +1,8 @@
 import React from "react";
 import CartItem from "./CartItem";
 
-class NavBar  extends React.Component
-{
+const Navbar =(props)=>{ 
 
-
-
-render(){
 return(
 <div style={styles.nav}  >
 <div style={styles.cartIconContainer}>
@@ -20,7 +16,7 @@ return(
 )
 
 }
-}
+
 
 const styles={
 
@@ -53,4 +49,4 @@ const styles={
     }
 
 }
-export default NavBar;
+export default Navbar;

@@ -2,12 +2,12 @@
 import './App.css';
 import CartItem from './CartItem'
 import Cart from './Cart' 
-import NavBar from './NavBar';
+import Navbar from './Navbar';
 
 function App() {
   return (
     <div className="App">
-      <NavBar></NavBar>
+      <Navbar></Navbar>
       <Cart></Cart>
     </div>
   );
