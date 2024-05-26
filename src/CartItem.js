@@ -1,7 +1,6 @@
 import React from "react";
-class CartItem extends React.Component{
 
-
+const CartItem =(props)=>{
 
 // increaseQuantity=()=>{
 //     //1way for setting state
@@ -32,10 +31,16 @@ class CartItem extends React.Component{
 
 // });
 // }
+const { price,title,qty}=props.product; //object destructuring 
+const {
+    product,
+    onIncreaseQuantity,
+    onDecreaseQuantity,
+    onDeleteProduct}=props;
 
 
-render(){
-const { price,title,qty}=this.props.product; //object destructuring 
+
+
 return (
     <div className="cart-item">
         <div className="left-block">
@@ -50,17 +55,17 @@ return (
                     className="action-icons" 
                     src="https://www.svgrepo.com/show/526461/add-circle.svg"
                     // onClick={this.increaseQuantity.bind(this)}
-                    onClick={()=>{this.props.onIncreaseQuantity(this.props.product)}}
+                    onClick={()=>{onIncreaseQuantity(product)}}
                     />
                     <img alt="decrease" 
                     className="action-icons"
                     src="https://www.svgrepo.com/show/525444/minus-circle.svg"
-                    onClick={()=>{this.props.onDecreaseQuantity(this.props.product)}}
+                    onClick={()=>{props.onDecreaseQuantity(props.product)}}
                     />
                     <img alt="delete"
                         className="action-icons"
                         src="https://cdn-icons-png.flaticon.com/128/9581/9581117.png"
-                        onClick={()=>this.props.onDeleteProduct(this.props.product.id)}
+                        onClick={()=>onDeleteProduct(product.id)}
                     /> 
             </div>
         </div>
@@ -68,7 +73,6 @@ return (
 )
 }
 
-}
 const styles={
 image:{
 height:110,
