@@ -40,7 +40,6 @@ const {
 
 
 
-
 return (
     <div className="cart-item">
         <div className="left-block">
