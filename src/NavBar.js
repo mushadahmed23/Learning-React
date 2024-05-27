@@ -2,7 +2,7 @@ import React from "react";
 import CartItem from "./CartItem";
 
 const Navbar =(props)=>{ 
-
+console.log(props)
 return(
 <div style={styles.nav}  >
 <div style={styles.cartIconContainer}>
@@ -11,7 +11,7 @@ return(
     alt="img her"
     src= 'https://cdn-icons-png.flaticon.com/128/3144/3144456.png'></img>
 </div>
-<span style={styles.cartCount}>3</span>
+<span style={styles.cartCount}>{props.getCartCount}</span>
 </div>
 )
 

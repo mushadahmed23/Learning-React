@@ -8,7 +8,7 @@ const { products,
     onDecreaseQuantity,
     onDeleteProduct}= props;
 
-console.log(props)
+
 return(
 <div className='cart' >
 { products.map((product)=>{
