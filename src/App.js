@@ -4,6 +4,10 @@ import CartItem from './CartItem'
 import Cart from './Cart' 
 import Navbar from './Navbar'
 import React from 'react';
+import firebase from 'firebase/compat/app';
+import 'firebase/compat/firestore'
+
+
 
 class App extends React.Component
 {
@@ -11,31 +15,42 @@ constructor(){
 
 super();
 this.state={
-products:[
-    {
-        id:1,
-        price:999,
-        title:'Phone',
-        img:'https://i0.wp.com/www.smartprix.com/bytes/wp-content/uploads/2024/01/1-10.jpg?ssl=1',
-        qty:1,
-    },
-    {   id:2,
-        price:99,
-        title:'Watch',
-        img:'https://media.istockphoto.com/id/1359180038/photo/wristwatch.jpg?s=612x612&w=0&k=20&c=AWkZ-gaLo601vG5eiQcsjYRjCjDxZdGL7v-jWvvAjEM=',
-        qty:4
-    },
-    {
-        id:3,
-        price:2999,
-        title:'Televison',
-        img:'https://images.samsung.com/is/image/samsung/in-full-hd-tv-te50fa-ua43te50fakxxl-frontblack-231881877?$650_519_PNG$',
-        qty:3
-    }
-]
-}; 
+products:[],
+loading:true
 
-}
+};}
+componentDidMount() {
+//     firebase.firestore().collection('products')
+//         .get()
+//         .then((snapshot) => {
+           
+// const products=snapshot.docs.map((doc)=>{
+//     const data=doc.data();
+//     data['id']=doc.id;
+
+//     return data;
+// })
+
+// this.setState({products,loading:false})
+//         })
+// }
+
+// onSnapshot for adding event listerner for any changes done in the firebase db
+firebase.firestore().collection('products')
+.onSnapshot((snapshot) => {
+   
+    const products=snapshot.docs.map((doc)=>{
+    const data=doc.data();
+    data['id']=doc.id;
+    
+    return data;
+    })
+    
+    this.setState({products,loading:false})
+    })
+    }
+
+
 handleIncreaseQuantity=(product)=>{
     
 const {products}=this.state;
@@ -97,7 +112,7 @@ getCartTotal=()=>{
 }
 
 render(){
-const{ products }=this.state;
+const{ products,loading }=this.state;
 
 return (
 <div className="App">
@@ -111,7 +126,9 @@ onDeleteProduct={this.handleDeleteProduct}
 
 
 ></Cart>
-<div style={{fontWeight:"bold",padding:"10px 10px"}}>TOTAL:{this.getCartTotal()}</div>
+{loading && <h1>Loading products....</h1>}
+<div style={{fontWeight:"bold",padding:"10px 10 px"}}>
+{!loading && `TOTAL: ${this.getCartTotal()}`}</div>
 </div>
 );
 

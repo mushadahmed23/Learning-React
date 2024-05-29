@@ -2,7 +2,6 @@ import React from "react";
 import CartItem from "./CartItem";
 
 const Navbar =(props)=>{ 
-console.log(props)
 return(
 <div style={styles.nav}  >
 <div style={styles.cartIconContainer}>
