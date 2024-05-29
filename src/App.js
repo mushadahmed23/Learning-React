@@ -18,7 +18,9 @@ this.state={
 products:[],
 loading:true
 
-};}
+};
+this.db=firebase.firestore();
+}
 componentDidMount() {
 //     firebase.firestore().collection('products')
 //         .get()
@@ -36,7 +38,7 @@ componentDidMount() {
 // }
 
 // onSnapshot for adding event listerner for any changes done in the firebase db
-firebase.firestore().collection('products')
+this.db.collection('products')
 .onSnapshot((snapshot) => {
    
     const products=snapshot.docs.map((doc)=>{
@@ -95,7 +97,8 @@ getCartCount=()=>{
     const{products}=this.state;
     let count=0;
     products.map((product)=>{
-        count=count+product.qty;
+      return   count=count+product.qty;
+
     })
     return count;
 }
@@ -104,12 +107,31 @@ getCartTotal=()=>{
     const{products}=this.state;
     let total=0;
     products.map((product)=>{
-        total=total+product.qty*product.price;
+         return total=total+product.qty*product.price;
+         
+
     })
     return total;
-
-    
 }
+addProduct=()=>{
+    this.db
+    .collection('products')
+    .add({
+        img:'',
+        title:" Machine",
+        qty:6,
+        //price:7999
+    })
+    .then((docRef)=>{
+    console.log("Product has been Added",docRef)}
+)
+    .catch((error)=>{
+        console.log(error)
+    
+    })
+}
+
+
 
 render(){
 const{ products,loading }=this.state;
@@ -118,6 +140,8 @@ return (
 <div className="App">
 <Navbar
  getCartCount={this.getCartCount()}></Navbar>
+ 
+<button style={{ fontFamily:"sans-seriff",margin:5,padding:"20px" ,borderRadius:25}} onClick={this.addProduct}>Add a product</button>
 <Cart
 products={products}
 onIncreaseQuantity={this.handleIncreaseQuantity}
