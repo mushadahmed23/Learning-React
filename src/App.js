@@ -1,6 +1,5 @@
 
 import './App.css';
-import CartItem from './CartItem'
 import Cart from './Cart' 
 import Navbar from './Navbar'
 import React from 'react';
@@ -29,25 +28,19 @@ componentDidMount() {
 // const products=snapshot.docs.map((doc)=>{
 //     const data=doc.data();
 //     data['id']=doc.id;
-
 //     return data;
 // })
-
 // this.setState({products,loading:false})
 //         })
 // }
-
 // onSnapshot for adding event listerner for any changes done in the firebase db
 this.db.collection('products')
 .onSnapshot((snapshot) => {
-   
     const products=snapshot.docs.map((doc)=>{
     const data=doc.data();
     data['id']=doc.id;
-    
     return data;
     })
-    
     this.setState({products,loading:false})
     })
     }
@@ -57,27 +50,30 @@ handleIncreaseQuantity=(product)=>{
     
 const {products}=this.state;
 const index= products.indexOf(product);
+const docRef=this.db.collection('products').doc(products[index].id)
 
-products[index].qty+=1;
-
-this.setState({
-    products:products
+docRef.update({
+    qty:products[index].qty+1 
+    
+}).then(()=>{
+    console.log('updated successfully');
 })
+
+
 }
 
 handleDecreaseQuantity=(product)=>{
     
     const {products}=this.state;
     const index =products.indexOf(product);
+    const docRef=this.db.collection('products').doc(products[index].id)
     
     
     if( products[index].qty>0){
-        products[index].qty-=1;
-    }
-    
-    this.setState({
-        products:products
-    })
+      docRef.update({
+        qty:products[index].qty-=1
+ } ) 
+}
 }
 
 handleDeleteProduct=(id)=>{
@@ -85,11 +81,11 @@ const {products}=this.state;
 // const index = products.indexOf(product);
 // console.log(index)
 // products.splice(index,1);
-const items = products.filter((item)=>item.id!==id)
-
-this.setState({
-    products:items
+const refDoc=this.db.collection('products').doc(id);
+refDoc.delete().then(()=>{
+    console.log("deleted successfully")
 })
+
 
 }
 
